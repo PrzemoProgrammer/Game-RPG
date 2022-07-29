@@ -15,10 +15,10 @@ class PlayScene extends Phaser.Scene {
   }
 
   create() {
-anims.forEach(anim => anim(this))
-   
     this.gw = this.game.config.width;
     this.gh = this.game.config.height;
+
+    anims.forEach(anim => anim(this))
 
     this.enemy = []
 

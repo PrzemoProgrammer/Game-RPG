@@ -11,6 +11,7 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('healthBarContainer', './src/assets/healthBarContainer.png');
     this.load.image('healthBar', './src/assets/healthBar.png');
 
+
     this.load.spritesheet('player-idle', './src/assets/playerIdle.png', {
         frameWidth: 288, frameHeight: 128
       });
@@ -106,11 +107,20 @@ class PreloadScene extends Phaser.Scene {
       this.load.spritesheet('flyingEye-attack', './src/assets/flyingEyeAttack.png', {
         frameWidth: 288, frameHeight: 128
       });
+
+
+
+      this.load.image('skillsBannerHUD', './src/assets/skillsBannerHUD.png');
+      this.load.image('profileHUD', './src/assets/profileHUD.png');
+      this.load.image('playerProfilePhotoHUD', './src/assets/playerProfilePhotoHUD.png');
+      this.load.image('inventoryHUD', './src/assets/inventoryHUD.png');
+      this.load.image('inventoryButtonHUD', './src/assets/inventoryButtonHUD.png');
      
   }
 
   create() {
     this.scene.start('PlayScene');
+    this.scene.launch("HudScene")
   }
 }
 
