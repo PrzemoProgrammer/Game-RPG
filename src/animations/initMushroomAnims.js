@@ -24,7 +24,7 @@ function initMushroomAnims(scene){
       scene.anims.create({
         key: 'mushroom-death',
         frames: scene.anims.generateFrameNumbers('mushroom-death', {start: 0, end: 3}),
-        frameRate: 5, 
+        frameRate: 10, 
         repeat: 0
       })
   

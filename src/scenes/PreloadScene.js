@@ -12,6 +12,12 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('healthBar', './src/assets/healthBar.png');
 
 
+    this.load.image('falling-rock-icon', './src/assets/fallingRockSkillIcon.png');
+    this.load.image('freeze-spin-icon', './src/assets/freezeSpinSkillIcon.png');
+    this.load.image('load-skill-image', './src/assets/loadSKillImage.png');
+    this.load.image('player-shoot-bullet', './src/assets/playerShootBullet.png');
+
+
     this.load.spritesheet('player-idle', './src/assets/playerIdle.png', {
         frameWidth: 288, frameHeight: 128
       });
@@ -36,9 +42,16 @@ class PreloadScene extends Phaser.Scene {
         frameWidth: 288, frameHeight: 128
       });
 
-      this.load.spritesheet('player-shoot-bullet', './src/assets/playerShootBullet.png', {
+      this.load.spritesheet('fall-rock-attack', './src/assets/fallRockAttack.png', {
         frameWidth: 288, frameHeight: 128
       });
+
+      this.load.spritesheet('freeze-spin-attack', './src/assets/freezeSpinAttack.png', {
+        frameWidth: 288, frameHeight: 128
+      });
+
+ 
+
 
 
 
@@ -110,16 +123,32 @@ class PreloadScene extends Phaser.Scene {
 
 
 
+
+
+       this.load.spritesheet('profilePhotoHUD', './src/assets/playerProfilePhotoHUD.png', {
+        frameWidth: 63, frameHeight: 63
+      });
+
       this.load.image('skillsBannerHUD', './src/assets/skillsBannerHUD.png');
       this.load.image('profileHUD', './src/assets/profileHUD.png');
-      this.load.image('playerProfilePhotoHUD', './src/assets/playerProfilePhotoHUD.png');
+      this.load.image('playerProfileHUD', './src/assets/playerProfileSpriteHUD.png');
       this.load.image('inventoryHUD', './src/assets/inventoryHUD.png');
       this.load.image('inventoryButtonHUD', './src/assets/inventoryButtonHUD.png');
-     
+      this.load.image('profileBackgroundHUD', './src/assets/profileBackgroundHUD.png');
+      this.load.image('manaBarHUD', './src/assets/manaBarHUD.png');
   }
 
   create() {
-    this.scene.start('PlayScene');
+    this.scene.launch('PlayScene', {
+      onPlaySceneCreated:this.onPlaySceneCreated.bind(this) // () => this.onPlaySceneCreated()
+    });
+  }
+
+  onPlaySceneCreated() {
+    this.launchHUD()
+  }
+
+  launchHUD() {
     this.scene.launch("HudScene")
   }
 }

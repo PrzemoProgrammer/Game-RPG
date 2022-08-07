@@ -81,7 +81,6 @@ class Enemy extends Entity {
                 this.canMove = true
                 this.character.play(this.state.idle, true) 
                 this.scene.physics.world.disable(this.swordHitbox.hitbox)
-                this.scene.skeletonSwordCollidePlayer.active = true
             })
     }
 

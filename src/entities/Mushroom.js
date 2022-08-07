@@ -21,7 +21,6 @@ class Mushroom extends Enemy {
         }
 
         this.createSwordHitBox(this.swordBounds)
-        
     }
 }
 export default Mushroom

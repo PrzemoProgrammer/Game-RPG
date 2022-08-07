@@ -4,7 +4,9 @@ class HandleInputs {
         this.cursors = scene.input.keyboard.createCursorKeys();
         this.keyA = scene.input.keyboard.addKey("A");
         this.keyS = scene.input.keyboard.addKey("S");
-      
+        this.key1 = scene.input.keyboard.addKey("ONE");
+        this.key2 = scene.input.keyboard.addKey("TWO");
+
         this.init();
     }
 
@@ -15,14 +17,20 @@ class HandleInputs {
 
     initAttackKeys(){
       this.keyA.on('down', ()=>{
-        if(this.scene.player.canAttack) this.scene.player.setShootAttack()
+        if(this.scene.player.canAttack) this.scene.player.setSwordAttack(); 
+        this.scene.enemy.forEach(entity => (entity.setSwordAttack()))
        })
 
       this.keyS.on('down', ()=>{
-        if(this.scene.player.canAttack) this.scene.player.setSwordAttack(); 
-        // this.scene.skeleton.setSwordAttack(); 
-        // this.scene.mushroom.setSwordAttack(); 
-        // this.scene.flyingEye.setSwordAttack(); 
+        if(this.scene.player.canAttack) this.scene.player.setShootAttack()
+      })
+
+      this.key1.on('down', ()=>{
+        if(this.scene.player.canAttack) this.scene.player.setFallRockAttack() 
+      })
+
+      this.key2.on('down', ()=>{
+        if(this.scene.player.canAttack) this.scene.player.setFreezeSpinAttack()
       })
     }
 

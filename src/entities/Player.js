@@ -1,3 +1,4 @@
+import { HUD_SCENE } from '../scenes/scenes'
 import Entity from './Entity'
 import AttackHitbox from '../combat/melee/AttackHitbox'
 import {BulletGroup, Bullet} from '../combat/shootAttack/BulletGroup'
@@ -22,7 +23,9 @@ class Player extends Entity {
             death: 'player-death',
             attack: {
                 sword: 'player-sword-attack',
-                shoot: 'player-shoot-attack'
+                shoot: 'player-shoot-attack',
+                fallRock: 'fall-rock-attack',
+                freezeSpin:'freeze-spin-attack'
             } 
         }
 
@@ -43,11 +46,51 @@ class Player extends Entity {
         )
 
         this.bullets = new BulletGroup(this, this.bullets.sprite, this.bullets.speed)
+  
+        
+        // console.log(HUD_SCENE.SCENE.status.healthBar.update())
+
     
     }
 
     update(){
         
+    }
+
+    setFreezeSpinAttack() {
+        this.canMove = false, 
+        this.canAttack = false,
+        this.characterContainer.body.setVelocity(0),
+        this.character.play(this.state.attack.freezeSpin, true)
+            .on('animationupdate', (anim, frame) => {   
+                if (frame.index === this.frameIndexAnimShootAttack){
+                    // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
+                    console.log(2)
+                    this.character.off('animationupdate')
+            }})
+            .once("animationcomplete",()=>{
+                this.canMove = true, 
+                this.canAttack = true, 
+                this.character.play(this.state.idle, true);
+      })    
+    }
+
+    setFallRockAttack() {
+        this.canMove = false, 
+        this.canAttack = false,
+        this.characterContainer.body.setVelocity(0),
+        this.character.play(this.state.attack.fallRock, true)
+            .on('animationupdate', (anim, frame) => {   
+                if (frame.index === this.frameIndexAnimShootAttack){
+                    // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
+                    console.log(1)
+                    this.character.off('animationupdate')
+            }})
+            .once("animationcomplete",()=>{
+                this.canMove = true, 
+                this.canAttack = true, 
+                this.character.play(this.state.idle, true);
+      })    
     }
 
     setShootAttack(){
@@ -109,6 +152,7 @@ class Player extends Entity {
         this.canMove = false
         this.attacked(damage)
         this.healthBar.update();
+        HUD_SCENE.SCENE.status.healthBar.update()
         this.character.play(this.state.takeHit, true)
         .once("animationcomplete",()=>{
             this.character.play(this.state.idle, true) 
@@ -148,7 +192,9 @@ class Player extends Entity {
 
     attacked(damage) {
         this.healthBar.health -= damage;
+        HUD_SCENE.SCENE.status.healthBar.bar -= damage
         this.healthBar.getHealBarWidth()
+        HUD_SCENE.SCENE.status.healthBar.getBarWidth()
     }
 }
 export default Player

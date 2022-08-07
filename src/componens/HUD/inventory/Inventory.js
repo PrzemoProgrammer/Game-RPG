@@ -6,10 +6,25 @@ class Inventory {
         this.y = y
         this.sprite = sprite
 
-        this.sprite= this.scene.add.sprite(this.x, this.y, this.sprite).setOrigin(0, 0)
+        this.sprite = this.scene.add.sprite(this.x, this.y, this.sprite).setOrigin(0, 0)
 
-  
-        // .on('pointerdown', () => button.setScale( 1.1 )).on('pointerup', () => button.setScale( 1 ));
+        this.closeInventory()
+    }
+
+    openInventory(){
+        this.changeInventoryVisibility(true)
+    }
+
+    closeInventory() {
+        this.changeInventoryVisibility(false)
+    }
+
+    changeInventoryVisibility(bool) {
+        this.sprite.setVisible(bool).setActive(bool)
+    }
+
+    isOpen(){
+        return this.sprite.visible
     }
 }
 export default Inventory

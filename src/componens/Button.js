@@ -1,15 +1,25 @@
-class Button {
-    constructor(scene, x, y, sprite) {
 
-        this.scene = scene
+class Button extends Phaser.GameObjects.Sprite{
+    constructor(scene, x, y, sprite) {
+        super(scene,x,y,sprite)
+        this.scene = scene  
         this.x = x
         this.y = y
         this.sprite = sprite
+        scene.add.existing(this)
 
-        this.sprite = this.scene.add.sprite(this.x, this.y, this.sprite).setOrigin(0, 0)
-
-        this.sprite.setInteractive()
-        // .on('pointerdown', () => button.setScale( 1.1 )).on('pointerup', () => button.setScale( 1 ));
+        this.setInteractive()
     }
+
+    onClick(cb) {
+        this.on("pointerdown", ()=> {
+            this.setScale( 0.9 )
+            cb()
+        })
+        .on('pointerup', () => this.setScale(1 ));
+
+        return this
+    }
+   
 }
 export default Button

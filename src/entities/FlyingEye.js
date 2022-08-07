@@ -5,7 +5,6 @@ class FlyingEye extends Enemy {
         super(scene, config)
 
         this.characterContainer.body.height = 60
-        this.frameIndexAnimAttack = 7
 
         this.state = {
             idle: 'flyingEye-idle',

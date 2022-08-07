@@ -41,6 +41,29 @@ function initPlayerAnims(scene){
         frameRate: 10, 
         repeat: 0
     })
+
+    scene.anims.create({
+      key: 'fall-rock-attack',
+      frames: scene.anims.generateFrameNumbers('fall-rock-attack', {start: 0, end: 17}),
+      frameRate: 10, 
+      repeat: 0
+  })
+
+  scene.anims.create({
+    key: 'freeze-spin-attack',
+    frames: scene.anims.generateFrameNumbers('freeze-spin-attack', {start: 0, end: 10}),
+    frameRate: 10, 
+    repeat: 0
+})
+  
+
+
+    scene.anims.create({
+      key: 'profilePhotoHUD',
+      frames: scene.anims.generateFrameNumbers('profilePhotoHUD', {start: 0, end: 3}),
+      frameRate: 5, 
+      repeat: -1
+  })
   }
 
   export default initPlayerAnims

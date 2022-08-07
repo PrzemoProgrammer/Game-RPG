@@ -7,6 +7,7 @@ import Skeleton from '../entities/Skeleton'
 import FlyingEye from '../entities/FlyingEye'
 import enemiesConfig from '../config/enemies/index'
 import playerConfig from '../config/player/player'
+import { PLAY_SCENE } from './scenes';
 
 class PlayScene extends Phaser.Scene {
 
@@ -14,10 +15,13 @@ class PlayScene extends Phaser.Scene {
     super('PlayScene');
   }
 
-  create() {
+  create({onPlaySceneCreated}) {
+    this.onPlaySceneCreated = onPlaySceneCreated 
+    PLAY_SCENE.setScene(this) 
+
     this.gw = this.game.config.width;
     this.gh = this.game.config.height;
-
+    
     anims.forEach(anim => anim(this))
 
     this.enemy = []
@@ -32,16 +36,12 @@ class PlayScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player.characterContainer, false, 0.5 , 0.5, - this.player.characterContainer.body.width/2, - this.player.characterContainer.body.height/2)
     this.cameras.main.setBounds(0, 0, this.grass.displayWidth, this.grass.displayHeight);
     this.physics.world.setBounds(0, 0, this.grass.displayWidth, this.grass.displayHeight);
-
-    // this.skeletonSwordCollidePlayer = this.physics.add.overlap(this.skeleton.swordHitbox.hitbox, this.player.characterContainer, this.updateTakePlayerSwordDamage, undefined, this)
-    // this.playerBulletCollideSkeleton = this.physics.add.overlap(this.player.bullets, this.skeleton.characterContainer, this.updateTakeSkeletonBulletDamage, undefined, this)
+    this.onPlaySceneCreated() 
   }
 
   update() {
     this.handleInputs.handleMovement()
-    // this.skeleton.update()
-    // this.mushroom.update()
-    // this.flyingEye.update()
+    this.enemy.forEach(entity => entity.update())
     this.updateDepth()
   }
 
@@ -56,6 +56,8 @@ class PlayScene extends Phaser.Scene {
   addEnemy(enemy) {
     this.enemy.push(enemy)
     this.physics.add.overlap(this.player.swordHitbox.hitbox, enemy.characterContainer, () => this.updateTakeEnemySwordDamage(enemy), undefined, this)
+    this.physics.add.overlap(enemy.swordHitbox.hitbox, this.player.characterContainer, () => this.updateTakePlayerSwordDamage(enemy), undefined, this)
+    this.physics.add.overlap(this.player.bullets, enemy.characterContainer, (enemyContainer, bullet) => this.updateTakeEnemyBulletDamage(enemy, bullet), undefined, this)
   }
 
   removeEnemy(enemy) {
@@ -83,6 +85,10 @@ class PlayScene extends Phaser.Scene {
     })
   }
 
+  updateTakePlayerSwordDamage(enemy){
+    this.player.setTakeDamage(enemy.swordHitPower)
+  }
+
   updateTakeEnemySwordDamage(enemy){
     enemy.setTakeDamage(this.player.swordHitPower)
 
@@ -91,27 +97,21 @@ class PlayScene extends Phaser.Scene {
     }
   }
 
-    updateTakePlayerSwordDamage(){
-      this.player.setTakeDamage(this.skeleton.swordHitPower)
-      this.skeletonSwordCollidePlayer.active = false
-    }
+  updateTakeEnemyBulletDamage(enemy, bullet){
+    enemy.setTakeDamage(this.player.shootHitPower)
+    bullet.setActive(false)
+    bullet.setVisible(false)
+    bullet.body.enable = false
 
-    updateTakeSkeletonSwordDamage(){ // handleSkeletonHitByPlayerSword
-      this.skeleton.setTakeDamage(this.player.swordHitPower)
-      this.playerSwordCollideSkeleton.active = false
+    if(enemy.isDead()) {
+      this.respawnEnemy(enemy)
     }
+  }
 
-    updateTakeSkeletonBulletDamage(enemy, bullet){
-      this.skeleton.setTakeDamage(this.player.shootHitPower)
-      bullet.setActive(false)
-      bullet.setVisible(false)
-      bullet.body.enable = false
-    }
-
-    updateDepth(){
-      this.enemy.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
-      this.player.characterContainer.setDepth(this.player.characterContainer.body.y + this.player.characterContainer.body.height)
-    }
+  updateDepth(){
+    this.enemy.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
+    this.player.characterContainer.setDepth(this.player.characterContainer.body.y + this.player.characterContainer.body.height)
+  }
 }
 
 export default PlayScene;
@@ -125,4 +125,3 @@ export default PlayScene;
 // kolizja z tójkątami
 
 
-// popatrzeć tą drugą secene
