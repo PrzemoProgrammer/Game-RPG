@@ -49,12 +49,12 @@ function initPlayerAnims(scene){
       repeat: 0
   })
 
-  scene.anims.create({
-    key: 'freeze-spin-attack',
-    frames: scene.anims.generateFrameNumbers('freeze-spin-attack', {start: 0, end: 10}),
-    frameRate: 10, 
-    repeat: 0
-})
+    scene.anims.create({
+      key: 'freeze-spin-attack',
+      frames: scene.anims.generateFrameNumbers('freeze-spin-attack', {start: 0, end: 10}),
+      frameRate: 10, 
+      repeat: 0
+  })
   
 
 
@@ -64,6 +64,56 @@ function initPlayerAnims(scene){
       frameRate: 5, 
       repeat: -1
   })
-  }
+
+
+
+  scene.anims.create({
+    key: 'meteorite-fire',
+    frames: scene.anims.generateFrameNumbers('meteorite-fire', {start: 0, end: 6}),
+    frameRate: 15, 
+    repeat: -1
+  })
+
+  scene.anims.create({
+    key: 'meteorite-explosion',
+    frames: scene.anims.generateFrameNumbers('meteorite-explosion', {start: 0, end: 5}),
+    frameRate: 10, 
+    repeat: 0
+  })
+
+  scene.anims.create({
+    key: 'ground-crash',
+    frames: scene.anims.generateFrameNumbers('ground-crash', {start: 0, end: 2}),
+    frameRate: 5, 
+    repeat: 0
+  })
+
+
+
+
+
+  scene.anims.create({
+    key: 'tornado',
+    frames: scene.anims.generateFrameNumbers('tornado', {start: 0, end: 9}),
+    frameRate: 10, 
+    repeat: 0
+  })
+
+  scene.anims.create({
+    key: 'snowstorm',
+    frames: scene.anims.generateFrameNumbers('snowstorm', {start: 0, end: 4}),
+    frameRate: 10, 
+    repeat: 0
+  })
+
+  scene.anims.create({
+    key: 'ice',
+    frames: scene.anims.generateFrameNumbers('ice', {start: 0, end: 4}),
+    frameRate: 10, 
+    repeat: 0
+  })
+
+
+}
 
   export default initPlayerAnims

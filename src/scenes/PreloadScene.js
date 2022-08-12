@@ -16,9 +16,44 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('freeze-spin-icon', './src/assets/freezeSpinSkillIcon.png');
     this.load.image('load-skill-image', './src/assets/loadSKillImage.png');
     this.load.image('player-shoot-bullet', './src/assets/playerShootBullet.png');
+    
 
 
-    this.load.spritesheet('player-idle', './src/assets/playerIdle.png', {
+
+    this.load.image('meteorite', './src/assets/meteorite.png');
+    this.load.image('ground-heat', './src/assets/groundHeat.png');
+
+    this.load.spritesheet('meteorite-fire', './src/assets/meteoriteFire.png', {
+      frameWidth: 286, frameHeight: 640
+    });
+
+    this.load.spritesheet('meteorite-explosion', './src/assets/meteoriteExplosion.png', {
+      frameWidth: 458, frameHeight: 499
+    });
+
+    this.load.spritesheet('ground-crash', './src/assets/groundCrash.png', {
+      frameWidth: 303, frameHeight: 123
+    });
+
+
+
+
+    this.load.spritesheet('tornado', './src/assets/tornado.png', {
+      frameWidth: 180, frameHeight: 138
+    });
+
+    this.load.spritesheet('snowstorm', './src/assets/snowstorm.png', {
+      frameWidth: 486, frameHeight: 276
+    });
+
+    this.load.spritesheet('ice', './src/assets/ice.png', {
+      frameWidth: 382, frameHeight: 272
+    });
+    
+
+
+
+      this.load.spritesheet('player-idle', './src/assets/playerIdle.png', {
         frameWidth: 288, frameHeight: 128
       });
 
@@ -131,7 +166,6 @@ class PreloadScene extends Phaser.Scene {
 
       this.load.image('skillsBannerHUD', './src/assets/skillsBannerHUD.png');
       this.load.image('profileHUD', './src/assets/profileHUD.png');
-      this.load.image('playerProfileHUD', './src/assets/playerProfileSpriteHUD.png');
       this.load.image('inventoryHUD', './src/assets/inventoryHUD.png');
       this.load.image('inventoryButtonHUD', './src/assets/inventoryButtonHUD.png');
       this.load.image('profileBackgroundHUD', './src/assets/profileBackgroundHUD.png');

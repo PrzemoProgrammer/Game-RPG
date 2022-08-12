@@ -2,6 +2,8 @@ import { HUD_SCENE } from '../scenes/scenes'
 import Entity from './Entity'
 import AttackHitbox from '../combat/melee/AttackHitbox'
 import {BulletGroup, Bullet} from '../combat/shootAttack/BulletGroup'
+import FallRock from '../combat/abilities/FallRock'
+import FreezeSpin from '../combat/abilities/FreezeSpin'
 
 class Player extends Entity {
     constructor(scene, config) {
@@ -46,11 +48,6 @@ class Player extends Entity {
         )
 
         this.bullets = new BulletGroup(this, this.bullets.sprite, this.bullets.speed)
-  
-        
-        // console.log(HUD_SCENE.SCENE.status.healthBar.update())
-
-    
     }
 
     update(){
@@ -61,11 +58,11 @@ class Player extends Entity {
         this.canMove = false, 
         this.canAttack = false,
         this.characterContainer.body.setVelocity(0),
+        this.activeFreezeSpin()
         this.character.play(this.state.attack.freezeSpin, true)
             .on('animationupdate', (anim, frame) => {   
                 if (frame.index === this.frameIndexAnimShootAttack){
                     // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
-                    console.log(2)
                     this.character.off('animationupdate')
             }})
             .once("animationcomplete",()=>{
@@ -76,21 +73,23 @@ class Player extends Entity {
     }
 
     setFallRockAttack() {
-        this.canMove = false, 
-        this.canAttack = false,
-        this.characterContainer.body.setVelocity(0),
-        this.character.play(this.state.attack.fallRock, true)
-            .on('animationupdate', (anim, frame) => {   
-                if (frame.index === this.frameIndexAnimShootAttack){
-                    // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
-                    console.log(1)
-                    this.character.off('animationupdate')
-            }})
-            .once("animationcomplete",()=>{
-                this.canMove = true, 
-                this.canAttack = true, 
-                this.character.play(this.state.idle, true);
-      })    
+        if(HUD_SCENE.SCENE.bottomBar.fallingRockIcon.isLoading) return
+            this.canMove = false, 
+            this.canAttack = false,
+            this.characterContainer.body.setVelocity(0),
+            HUD_SCENE.SCENE.bottomBar.fallingRockIcon.startLoading()
+            this.activeFallRockAbility()
+            this.character.play(this.state.attack.fallRock, true)
+                .on('animationupdate', (anim, frame) => {   
+                    if (frame.index === this.frameIndexAnimShootAttack){
+                        // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
+                        this.character.off('animationupdate')
+                }})
+                .once("animationcomplete",()=>{
+                    this.canMove = true, 
+                    this.canAttack = true, 
+                    this.character.play(this.state.idle, true);
+        })    
     }
 
     setShootAttack(){
@@ -195,6 +194,25 @@ class Player extends Entity {
         HUD_SCENE.SCENE.status.healthBar.bar -= damage
         this.healthBar.getHealBarWidth()
         HUD_SCENE.SCENE.status.healthBar.getBarWidth()
+    }
+
+    initMeteorite(){
+        this.fallRock = new FallRock(this.scene, this.x, this.y, "meteorite", 'meteorite-fire', 'meteorite-explosion', 'ground-crash', 'ground-heat', 200)
+    }
+
+    activeFallRockAbility(){
+        this.initMeteorite()
+        this.fallRock.setPosition(this.character.flipX ? this.characterContainer.x - 300 : this.characterContainer.x, this.characterContainer.y)
+        this.fallRock.active()
+    }
+
+    initFreezeSpin(){
+        this.freezeSpin = new FreezeSpin(this.scene, this.x, this.y, "snowstorm", "ice", 200)    
+    }
+
+    activeFreezeSpin(){
+        this.initFreezeSpin()
+        this.freezeSpin.setPosition(this.characterContainer.x, this.characterContainer.y)
     }
 }
 export default Player

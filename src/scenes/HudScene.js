@@ -23,7 +23,7 @@ class HudScene extends Phaser.Scene {
       }
 
       update() {
-       
+       this.bottomBar.fallingRockIcon.update()
       }
 
    
