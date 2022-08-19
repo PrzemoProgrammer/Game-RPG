@@ -1,18 +1,17 @@
 class FreezeSpin {
-    constructor(scene, x, y, icestormImg, iceImg) {
+    constructor(scene, x, y, icestormImg, iceImg, dmg, stunTime) {
         this.scene = scene
         this.x = x
         this.y = y
         this.icestormImg = icestormImg
         this.iceImg = iceImg
+        this.dmg = dmg
+        this.stunTime = stunTime
 
-        this.ice = this.scene.add.sprite(this.x +35, this.y +80, this.iceImg)
-        this.icestorm = this.scene.add.sprite(this.x +40, this.y + 40, this.icestormImg)
+        this.freezeStates = []
+        this.targets = []
 
-        this.freezeSpinContainer = scene.add.container(this.x -400, this.y -350, [this.ice, this.icestorm])
-
-        this.icestorm.play(this.icestormImg, true)
-        this.ice.play(this.iceImg, true)
+        this.icestorm = this.scene.add.sprite(this.x, this.y, this.icestormImg)
     }
 
     update(){
@@ -20,13 +19,47 @@ class FreezeSpin {
     }
 
     active(){
+        this.scene.tweens.add({
+            targets: this.icestorm,
+            alpha: 0,
+            duration: 1000,
+        })
         this.icestorm.play(this.icestormImg, true)
-        this.ice.play(this.iceImg, true)
+        .once("animationcomplete",()=>{
+            this.icestorm.destroy()
+        })
     }
 
     setPosition(x, y){
-        this.freezeSpinContainer.setPosition(x , y )
+        this.icestorm.setPosition(x +45, y +40)
     }
-    //? ustawić tą animacje lodu w dobrym setPosition 
+
+    deactivation(){
+        this.scene.time.delayedCall(this.stunTime, () => {
+            this.freezeStates.forEach(states => {
+                states.playReverse('frozenState', true)
+                .once("animationcomplete",()=>{
+                    this.targets.forEach( targets =>{ targets.character.play(targets.state.idle, true), targets.canMove = true, targets.canAttack = true })
+                    for(let r=0; r < this.freezeStates.length; r++) {
+                        this.freezeStates[r].destroy()
+                    }
+                })
+            })
+        })
+    }
+
+    activeFrozenState(enemy){
+        this.freezeStates.unshift(this.scene.add.sprite(enemy.characterContainer.x -40, enemy.characterContainer.y + enemy.characterContainer.body.height -70, 'frozenState').setOrigin(0, 0))
+        this.targets.unshift(enemy)
+
+        this.freezeStates[0].play('frozenState', true).setDepth(2000)
+
+        this.targets[0].canMove = false
+        this.targets[0].canAttack = false
+        this.targets[0].character.anims.stop()
+
+        if(this.freezeStates.length >1 ) return
+        this.deactivation()
+    }
 }
 export default FreezeSpin

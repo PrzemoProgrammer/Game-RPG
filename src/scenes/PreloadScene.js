@@ -12,6 +12,13 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('healthBar', './src/assets/healthBar.png');
 
 
+
+    this.load.spritesheet('NPC-shop', './src/assets/shopNPC.png', {
+      frameWidth: 288, frameHeight: 127
+    });
+
+
+
     this.load.image('falling-rock-icon', './src/assets/fallingRockSkillIcon.png');
     this.load.image('freeze-spin-icon', './src/assets/freezeSpinSkillIcon.png');
     this.load.image('load-skill-image', './src/assets/loadSKillImage.png');
@@ -48,6 +55,10 @@ class PreloadScene extends Phaser.Scene {
 
     this.load.spritesheet('ice', './src/assets/ice.png', {
       frameWidth: 382, frameHeight: 272
+    });
+
+    this.load.spritesheet('frozenState', './src/assets/frozenState.png', {
+      frameWidth: 135, frameHeight: 77
     });
     
 

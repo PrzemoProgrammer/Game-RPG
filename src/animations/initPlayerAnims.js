@@ -103,7 +103,7 @@ function initPlayerAnims(scene){
     key: 'snowstorm',
     frames: scene.anims.generateFrameNumbers('snowstorm', {start: 0, end: 4}),
     frameRate: 10, 
-    repeat: 0
+    repeat: 2
   })
 
   scene.anims.create({
@@ -111,6 +111,24 @@ function initPlayerAnims(scene){
     frames: scene.anims.generateFrameNumbers('ice', {start: 0, end: 4}),
     frameRate: 10, 
     repeat: 0
+  })
+
+  scene.anims.create({
+    key: 'frozenState',
+    frames: scene.anims.generateFrameNumbers('frozenState', {start: 0, end: 5}),
+    frameRate: 10, 
+    repeat: 0
+  })
+
+
+
+
+
+  scene.anims.create({
+    key: 'NPC-shop',
+    frames: scene.anims.generateFrameNumbers('NPC-shop', {start: 0, end: 7}),
+    frameRate: 10, 
+    repeat: -1
   })
 
 

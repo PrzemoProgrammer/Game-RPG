@@ -1,13 +1,16 @@
 import Phaser from 'phaser';
+import { PLAY_SCENE } from './scenes';
 import HandleInputs from '../utils/HandleInputs'
+import MouseControl from '../utils/MouseControl';
 import Player from '../entities/Player'
-import anims from '../animations/index'
 import Mushroom from '../entities/Mushroom'
 import Skeleton from '../entities/Skeleton'
 import FlyingEye from '../entities/FlyingEye'
+import ShopNPC from '../entities/ShopNPC'
+import anims from '../animations/index'
 import enemiesConfig from '../config/enemies/index'
 import playerConfig from '../config/player/player'
-import { PLAY_SCENE } from './scenes';
+import shopNPCConfig from '../config/NPC/shopNPC'
 
 class PlayScene extends Phaser.Scene {
 
@@ -28,10 +31,12 @@ class PlayScene extends Phaser.Scene {
 
     this.grass = this.add.image(0, 0, 'grass').setOrigin(0, 0)
     this.player = new Player(this, playerConfig)
+    this.shopNPC = new ShopNPC(this, shopNPCConfig)
 
     this.initSpawnEnemies()
   
     this.handleInputs = new HandleInputs(this)
+    this.mouseControl = new MouseControl(this)
 
     this.cameras.main.startFollow(this.player.characterContainer, false, 0.5 , 0.5, - this.player.characterContainer.body.width/2, - this.player.characterContainer.body.height/2)
     this.cameras.main.setBounds(0, 0, this.grass.displayWidth, this.grass.displayHeight);
@@ -41,6 +46,7 @@ class PlayScene extends Phaser.Scene {
 
   update() {
     this.handleInputs.handleMovement()
+    this.mouseControl.handleMovement()
     this.enemy.forEach(entity => entity.update())
     this.updateDepth()
   }
@@ -58,6 +64,9 @@ class PlayScene extends Phaser.Scene {
     this.physics.add.overlap(this.player.swordHitbox.hitbox, enemy.characterContainer, () => this.updateTakeEnemySwordDamage(enemy), undefined, this)
     this.physics.add.overlap(enemy.swordHitbox.hitbox, this.player.characterContainer, () => this.updateTakePlayerSwordDamage(enemy), undefined, this)
     this.physics.add.overlap(this.player.bullets, enemy.characterContainer, (enemyContainer, bullet) => this.updateTakeEnemyBulletDamage(enemy, bullet), undefined, this)
+
+    this.physics.add.overlap(this.player.fallRockHitbox.hitbox, enemy.characterContainer, () => this.updateTakeEnemyFallRockDamage(enemy), undefined, this)
+    this.physics.add.overlap(this.player.freezeSpinHitbox.hitbox, enemy.characterContainer, () => this.updateTakeEnemyFreezeSpinDamage(enemy), undefined, this)
   }
 
   removeEnemy(enemy) {
@@ -97,6 +106,24 @@ class PlayScene extends Phaser.Scene {
     }
   }
 
+  updateTakeEnemyFallRockDamage(enemy){
+    enemy.setTakeDamage(this.player.fallRockPower)
+
+    if(enemy.isDead()) {
+      this.respawnEnemy(enemy)
+    }
+  }
+
+  updateTakeEnemyFreezeSpinDamage(enemy){
+    enemy.setTakeDamage(this.player.freezeSpinPower)
+
+    if(enemy.isDead()) {
+      this.respawnEnemy(enemy)
+      return
+    }
+    this.player.freezeSpin.activeFrozenState(enemy)
+  }
+
   updateTakeEnemyBulletDamage(enemy, bullet){
     enemy.setTakeDamage(this.player.shootHitPower)
     bullet.setActive(false)
@@ -113,15 +140,11 @@ class PlayScene extends Phaser.Scene {
     this.player.characterContainer.setDepth(this.player.characterContainer.body.y + this.player.characterContainer.body.height)
   }
 }
-
 export default PlayScene;
 
 
-// skille
 // ekwipunek
 // np ze sklepem
-// jak dostane hita to shake i flash kamery
-// chodzenie myszką i klawiszami (użyć tweena)
 // kolizja z tójkątami
 
 

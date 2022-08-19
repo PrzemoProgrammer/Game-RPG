@@ -4,6 +4,8 @@ import AttackHitbox from '../combat/melee/AttackHitbox'
 import {BulletGroup, Bullet} from '../combat/shootAttack/BulletGroup'
 import FallRock from '../combat/abilities/FallRock'
 import FreezeSpin from '../combat/abilities/FreezeSpin'
+import FallRockHitbox from '../combat/abilities/FallRockHitbox'
+import FreezeSpinHitbox from '../combat/abilities/FreezeSpinHitbox'
 
 class Player extends Entity {
     constructor(scene, config) {
@@ -12,11 +14,15 @@ class Player extends Entity {
         this.scene = scene
         this.swordHitPower = config.swordDamage
         this.shootHitPower = config.shootDamage
+        this.fallRockPower = config.fallRockDamage
+        this.freezeSpinPower = config.freezeSpinDamage
 
         this.canAttack = true
 
         this.frameIndexAnimSwordAttack = 5
         this.frameIndexAnimShootAttack = 4
+        this.frameIndexFallRockAttack = 13
+        this.frameIndexFreezeSpinAttack = 2
 
         this.state = {
             idle: 'player-idle',
@@ -29,6 +35,20 @@ class Player extends Entity {
                 fallRock: 'fall-rock-attack',
                 freezeSpin:'freeze-spin-attack'
             } 
+        }
+
+        this.fallRockBounds = {
+            offsetX: 20,
+            offsetY: 30,
+            w: 190,
+            h: 90
+        }
+
+        this.freezeSpinBounds = {
+            offsetX: 150,
+            offsetY: 50,
+            w: 370,
+            h: 200
         }
 
         this.swordBounds = {
@@ -47,6 +67,16 @@ class Player extends Entity {
             this.swordBounds
         )
 
+        this.fallRockHitbox = new FallRockHitbox(
+            this, 
+            this.fallRockBounds
+        )
+
+        this.freezeSpinHitbox = new FreezeSpinHitbox(
+            this, 
+            this.freezeSpinBounds
+        )
+
         this.bullets = new BulletGroup(this, this.bullets.sprite, this.bullets.speed)
     }
 
@@ -55,20 +85,23 @@ class Player extends Entity {
     }
 
     setFreezeSpinAttack() {
-        this.canMove = false, 
-        this.canAttack = false,
-        this.characterContainer.body.setVelocity(0),
-        this.activeFreezeSpin()
-        this.character.play(this.state.attack.freezeSpin, true)
-            .on('animationupdate', (anim, frame) => {   
-                if (frame.index === this.frameIndexAnimShootAttack){
-                    // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
-                    this.character.off('animationupdate')
-            }})
-            .once("animationcomplete",()=>{
-                this.canMove = true, 
-                this.canAttack = true, 
-                this.character.play(this.state.idle, true);
+        if(HUD_SCENE.SCENE.bottomBar.freezeSpinIcon.isLoading) return
+            this.canMove = false, 
+            this.canAttack = false,
+            this.freezeSpinHitbox.resetPosition();
+            this.characterContainer.body.setVelocity(0),
+            HUD_SCENE.SCENE.bottomBar.freezeSpinIcon.startLoading()
+            this.activeFreezeSpin()
+            this.character.play(this.state.attack.freezeSpin, true)
+                .on('animationupdate', (anim, frame) => {   
+                    if (frame.index === this.frameIndexFreezeSpinAttack){
+                        this.scene.physics.world.enable(this.freezeSpinHitbox.hitbox)
+                        this.character.off('animationupdate')
+                }})
+                .once("animationcomplete",()=>{
+                    this.canMove = true, 
+                    this.canAttack = true, 
+                    this.character.play(this.state.idle, true);
       })    
     }
 
@@ -76,13 +109,14 @@ class Player extends Entity {
         if(HUD_SCENE.SCENE.bottomBar.fallingRockIcon.isLoading) return
             this.canMove = false, 
             this.canAttack = false,
+            this.fallRockHitbox.resetPosition();
             this.characterContainer.body.setVelocity(0),
             HUD_SCENE.SCENE.bottomBar.fallingRockIcon.startLoading()
             this.activeFallRockAbility()
             this.character.play(this.state.attack.fallRock, true)
                 .on('animationupdate', (anim, frame) => {   
-                    if (frame.index === this.frameIndexAnimShootAttack){
-                        // this.bullets.shoot(this.characterContainer.body.x + this.characterContainer.body.width, this.characterContainer.body.y + 15);
+                    if (frame.index === this.frameIndexFallRockAttack){
+                        this.scene.physics.world.enable(this.fallRockHitbox.hitbox)
                         this.character.off('animationupdate')
                 }})
                 .once("animationcomplete",()=>{
@@ -189,6 +223,16 @@ class Player extends Entity {
         this.characterContainer.body.setVelocity(0)
     }
 
+    mouseMove(x){
+        this.character.play(this.state.walkRight, true)
+        if(x < this.characterContainer.body.x){
+            this.character.flipX = true
+        }
+        else {
+            this.character.flipX = false
+        }
+    }
+
     attacked(damage) {
         this.healthBar.health -= damage;
         HUD_SCENE.SCENE.status.healthBar.bar -= damage
@@ -207,12 +251,13 @@ class Player extends Entity {
     }
 
     initFreezeSpin(){
-        this.freezeSpin = new FreezeSpin(this.scene, this.x, this.y, "snowstorm", "ice", 200)    
+        this.freezeSpin = new FreezeSpin(this.scene, this.x, this.y, "snowstorm", "ice", 200, 3000)    
     }
 
     activeFreezeSpin(){
         this.initFreezeSpin()
-        this.freezeSpin.setPosition(this.characterContainer.x, this.characterContainer.y)
+        this.freezeSpin.setPosition(this.character.flipX ? this.characterContainer.x -15 : this.characterContainer.x, this.characterContainer.y)
+        this.freezeSpin.active()
     }
 }
 export default Player
