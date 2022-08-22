@@ -10,15 +10,16 @@ class FallRock {
         this.crash = crash
         this.heat = heat
         this.damage = damage
+// x = 400
+//y = 350
+        this.ribbon = this.scene.add.sprite(440, -200, this.ribbon).setOrigin(0, 0)
+        this.rock = this.scene.add.image(580, 360, this.rock)
+        this.groundCrash = this.scene.add.sprite(450, 360, this.crash).setOrigin(0, 0)
+        this.groundHeat = this.scene.add.sprite(450, 360, this.heat).setOrigin(0, 0)
+        this.explosion = this.scene.add.sprite(340, -30, this.eruption).setOrigin(0, 0)
 
-        this.ribbon = this.scene.add.sprite(this.x +40, this.y -550, this.ribbon).setOrigin(0, 0)
-        this.rock = this.scene.add.image(this.x +180, this.y +10, this.rock)
-        this.groundCrash = this.scene.add.sprite(this.x + 50, this.y + 10, this.crash).setOrigin(0, 0)
-        this.groundHeat = this.scene.add.sprite(this.x + 50, this.y + 10, this.heat).setOrigin(0, 0)
-        this.explosion = this.scene.add.sprite(this.x -60, this.y -380, this.eruption).setOrigin(0, 0)
-
-        this.ribbonRockContainer = scene.add.container(this.x -400, this.y -2000, [this.ribbon, this.rock])
-        this.explosionCrashContainer = scene.add.container(this.x -400, this.y -2000, [this.groundCrash, this.groundHeat, this.explosion])
+        this.ribbonRockContainer = scene.add.container(this.x , this.y , [this.ribbon, this.rock])
+        this.explosionCrashContainer = scene.add.container(this.x , this.y , [this.groundCrash, this.groundHeat, this.explosion])
 
         this.ribbonRockContainer.setDepth(1000)
         this.explosionCrashContainer.visible = false

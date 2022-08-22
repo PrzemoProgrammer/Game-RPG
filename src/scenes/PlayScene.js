@@ -143,6 +143,7 @@ class PlayScene extends Phaser.Scene {
 export default PlayScene;
 
 
+// naprawić bug klikanie myszką i w tym samym czasie klikanie skilla ( kalwiatura nei reaguje)
 // ekwipunek
 // np ze sklepem
 // kolizja z tójkątami
