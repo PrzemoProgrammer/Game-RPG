@@ -11,12 +11,28 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('healthBarContainer', './src/assets/healthBarContainer.png');
     this.load.image('healthBar', './src/assets/healthBar.png');
 
+    this.load.image('closeButton', './src/assets/closeButton.png');
+    
+    this.load.image('blankBackgroundWindow', './src/assets/blankBackgroundWindow.png');
+
+    
 
 
     this.load.spritesheet('NPC-shop', './src/assets/shopNPC.png', {
       frameWidth: 288, frameHeight: 127
     });
+    this.load.image('shopInscription', './src/assets/shopInscription.png');
 
+
+
+
+
+  this.load.spritesheet('NPC-quest', './src/assets/questNPCIdle.png', {
+      frameWidth: 288, frameHeight: 127
+    });
+    this.load.image('questInscription', './src/assets/questInscription.png');
+
+    
 
 
     this.load.image('falling-rock-icon', './src/assets/fallingRockSkillIcon.png');
@@ -177,7 +193,7 @@ class PreloadScene extends Phaser.Scene {
 
       this.load.image('skillsBannerHUD', './src/assets/skillsBannerHUD.png');
       this.load.image('profileHUD', './src/assets/profileHUD.png');
-      this.load.image('inventoryHUD', './src/assets/inventoryHUD.png');
+      this.load.image('window', './src/assets/window.png');
       this.load.image('inventoryButtonHUD', './src/assets/inventoryButtonHUD.png');
       this.load.image('profileBackgroundHUD', './src/assets/profileBackgroundHUD.png');
       this.load.image('manaBarHUD', './src/assets/manaBarHUD.png');

@@ -84,6 +84,17 @@ class Player extends Entity {
         
     }
 
+    freeze() {
+        this.canMove = false
+        this.canAttack = false
+        this.characterContainer.body.setVelocity(0)
+    }
+
+    unfreeze() {
+        this.canMove = true
+        this.canAttack = true
+    }
+
     setFreezeSpinAttack() {
         if(HUD_SCENE.SCENE.bottomBar.freezeSpinIcon.isLoading) return
             this.canMove = false, 

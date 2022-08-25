@@ -16,14 +16,14 @@ class HudScene extends Phaser.Scene {
       
         this.bottomBar = new BottomBar(this, 230, 530, 'skillsBannerHUD')
         this.status = new Status(this, 10, 10, 'profileHUD', 'profilePhotoHUD', 'profileBackgroundHUD')
-        this.inventory = new Inventory(this, 530, 190, 'inventoryHUD')
-        this.inventoryButton = new Button(this, 760, 565, 'inventoryButtonHUD').onClick(()=>{
-            this.inventory.isOpen() ? this.inventory.closeInventory() : this.inventory.openInventory()
-        })
+        // this.inventory = new Window(this, 530, 190, 'window')
+        // this.inventoryButton = new Button(this, 760, 565, 'inventoryButtonHUD').onClick(()=>{
+        //     this.inventory.isOpen() ? this.inventory.closeInventory() : this.inventory.openInventory()
+        // })
       }
 
       update() {
-       this.bottomBar.fallingRockIcon.update()
+
       }
 
    

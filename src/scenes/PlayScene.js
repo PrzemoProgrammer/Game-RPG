@@ -6,11 +6,11 @@ import Player from '../entities/Player'
 import Mushroom from '../entities/Mushroom'
 import Skeleton from '../entities/Skeleton'
 import FlyingEye from '../entities/FlyingEye'
-import ShopNPC from '../entities/ShopNPC'
 import anims from '../animations/index'
 import enemiesConfig from '../config/enemies/index'
 import playerConfig from '../config/player/player'
-import shopNPCConfig from '../config/NPC/shopNPC'
+import NPCsConfig from '../config/NPC/index'
+import NPC from '../entities/NPC';
 
 class PlayScene extends Phaser.Scene {
 
@@ -28,12 +28,13 @@ class PlayScene extends Phaser.Scene {
     anims.forEach(anim => anim(this))
 
     this.enemy = []
+    this.NPC = []
 
     this.grass = this.add.image(0, 0, 'grass').setOrigin(0, 0)
     this.player = new Player(this, playerConfig)
-    this.shopNPC = new ShopNPC(this, shopNPCConfig)
 
     this.initSpawnEnemies()
+    this.initSpawnNPCs()
   
     this.handleInputs = new HandleInputs(this)
     this.mouseControl = new MouseControl(this)
@@ -48,7 +49,32 @@ class PlayScene extends Phaser.Scene {
     this.handleInputs.handleMovement()
     this.mouseControl.handleMovement()
     this.enemy.forEach(entity => entity.update())
+    this.NPC.forEach(entity => entity.update(this.player))
     this.updateDepth()
+  }
+
+  initSpawnNPCs() {
+    NPCsConfig.forEach(NPCConfig => { 
+      for(let i = 0; i < NPCConfig.count; ++i) {
+        this.spawnNPC(NPCConfig)
+      }
+    })
+  }
+
+  spawnNPC(NPCConfig) {
+    const npc = new NPC(this, NPCConfig)
+
+    npc.window.setWindowCallbacks({
+      onWindowOpen:()=>{
+        this.player.freeze()
+      },
+      onWindowClose:()=>{
+        this.player.unfreeze()
+      }
+    })
+
+    this.NPC.push(npc)
+    this.physics.add.overlap(this.player.characterContainer, npc.characterContainer, () => this.openWindow(npc), undefined, this)
   }
 
   initSpawnEnemies() {
@@ -94,6 +120,10 @@ class PlayScene extends Phaser.Scene {
     })
   }
 
+  openWindow(NPC){
+    NPC.openWindow();
+  }
+
   updateTakePlayerSwordDamage(enemy){
     this.player.setTakeDamage(enemy.swordHitPower)
   }
@@ -137,13 +167,12 @@ class PlayScene extends Phaser.Scene {
 
   updateDepth(){
     this.enemy.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
+    this.NPC.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
     this.player.characterContainer.setDepth(this.player.characterContainer.body.y + this.player.characterContainer.body.height)
   }
 }
 export default PlayScene;
 
-
-// naprawić bug klikanie myszką i w tym samym czasie klikanie skilla ( kalwiatura nei reaguje)
 // ekwipunek
 // np ze sklepem
 // kolizja z tójkątami

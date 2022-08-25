@@ -1,11 +1,11 @@
 export default {
-    x:300,
+    x:400,
     y:250,
     sprite:'NPC-shop',
     name:"SHOP",
     type:"NPC",
+    windowType:"SHOP",
     speed:0,
-    enemyType:"NPC",
 
     count:1
   }

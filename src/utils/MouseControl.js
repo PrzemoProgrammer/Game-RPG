@@ -10,10 +10,13 @@ class MouseControl {
 
     addEvents(){
         this.scene.input.on('pointerdown', pointer => {
+
+            if(!this.scene.player.canMove) return
+
             this.isMove = true
 
-            this.target.x = pointer.worldX
-            this.target.y = pointer.worldY
+            this.target.x = pointer.worldX - this.scene.player.characterContainer.body.width/2
+            this.target.y = pointer.worldY - this.scene.player.characterContainer.body.height
 
             this.scene.physics.moveToObject(this.scene.player.characterContainer, this.target, this.scene.player.speed)
 
@@ -24,7 +27,7 @@ class MouseControl {
     handleMovement(){
         if(!this.isMove) return
 
-        const distance = Phaser.Math.Distance.Between(this.scene.player.characterContainer.body.x, this.scene.player.characterContainer.body.y, this.target.x, this.target.y);
+        const distance = Phaser.Math.Distance.BetweenPoints(this.scene.player.characterContainer.body, this.target);
 
         if(distance < 4) {
             this.scene.player.characterContainer.body.reset(this.target.x, this.target.y);

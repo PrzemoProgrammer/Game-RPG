@@ -124,12 +124,25 @@ function initPlayerAnims(scene){
 
 
 
+
   scene.anims.create({
     key: 'NPC-shop',
     frames: scene.anims.generateFrameNumbers('NPC-shop', {start: 0, end: 7}),
     frameRate: 10, 
     repeat: -1
   })
+
+
+
+
+
+  scene.anims.create({
+    key: 'NPC-quest',
+    frames: scene.anims.generateFrameNumbers('NPC-quest', {start: 0, end: 5}),
+    frameRate: 10, 
+    repeat: -1
+  })
+
 
 
 }
