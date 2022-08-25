@@ -195,6 +195,7 @@ class PreloadScene extends Phaser.Scene {
       this.load.image('profileHUD', './src/assets/profileHUD.png');
       this.load.image('window', './src/assets/window.png');
       this.load.image('inventoryButtonHUD', './src/assets/inventoryButtonHUD.png');
+      this.load.image('inventoryInscription', './src/assets/inventoryInscription.png');
       this.load.image('profileBackgroundHUD', './src/assets/profileBackgroundHUD.png');
       this.load.image('manaBarHUD', './src/assets/manaBarHUD.png');
   }

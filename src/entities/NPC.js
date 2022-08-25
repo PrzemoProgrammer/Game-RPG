@@ -9,16 +9,20 @@ class NPC extends Entity {
     constructor(scene, config) {
         super(scene, config)
 
-        this.character.x = -220
+        if(config.offsetCharacter) {
+            const offset = config.offsetCharacter
 
+            if(offset.x) this.character.x = offset.x
+            if(offset.y) this.character.y = offset.y
+        }
+       
+        if(config.containerBody){
+            const body = config.containerBody
 
-        //////////////////////////////////////////////////////////////
-        // this.character.y = -190
-        // this.characterContainer.body.height = 60
-        //////////////////////////////////////////////////////////////
-
-
-
+            if(body.w) this.characterContainer.body.width = body.w
+            if(body.h) this.characterContainer.body.height = body.h
+        }
+           
         if(!config.hp){
             this.healthBar.healthBarContainer.visible = false
             this.healthBar.energybar.visible = false

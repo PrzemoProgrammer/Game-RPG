@@ -67,6 +67,7 @@ class PlayScene extends Phaser.Scene {
     npc.window.setWindowCallbacks({
       onWindowOpen:()=>{
         this.player.freeze()
+        this.mouseControl.setClicksBlocked(1)
       },
       onWindowClose:()=>{
         this.player.unfreeze()

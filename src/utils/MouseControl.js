@@ -3,9 +3,13 @@ class MouseControl {
         this.scene = scene
 
         this.target = new Phaser.Math.Vector2();
-        this.isMove = false
+        this.blockedClicks = 0
 
         this.addEvents();
+    }
+
+    setClicksBlocked(value){
+        this.blockedClicks += value
     }
 
     addEvents(){
@@ -13,8 +17,11 @@ class MouseControl {
 
             if(!this.scene.player.canMove) return
 
-            this.isMove = true
-
+            if(this.blockedClicks > 0) {
+                this.blockedClicks --
+                return
+            }
+    
             this.target.x = pointer.worldX - this.scene.player.characterContainer.body.width/2
             this.target.y = pointer.worldY - this.scene.player.characterContainer.body.height
 
@@ -25,14 +32,14 @@ class MouseControl {
     }
 
     handleMovement(){
-        if(!this.isMove) return
+        if(this.target.length() === 0) return
 
         const distance = Phaser.Math.Distance.BetweenPoints(this.scene.player.characterContainer.body, this.target);
 
         if(distance < 4) {
             this.scene.player.characterContainer.body.reset(this.target.x, this.target.y);
             this.scene.player.setIdle()
-            this.isMove = false
+            this.target.reset()
         }
     }
 }
