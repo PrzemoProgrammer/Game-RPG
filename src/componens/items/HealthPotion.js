@@ -5,6 +5,7 @@ class HealthPotion extends Item {
         super(scene, config)
 
 
+        
 
     }
 }

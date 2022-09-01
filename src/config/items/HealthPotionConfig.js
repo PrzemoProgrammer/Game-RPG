@@ -1,5 +1,9 @@
 export default {
-    x: 10,
-    y: 10,
-    sprite:"mushroom-idle",
+    x: 25,
+    y: 35,
+    sprite:"health-potion",
+    type: "healthPotion",
+    name:"Health Potion",
+    description: "Health +50",
+    cost: "50"
   }

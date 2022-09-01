@@ -22,7 +22,16 @@ class PreloadScene extends Phaser.Scene {
       frameWidth: 288, frameHeight: 127
     });
     this.load.image('shopInscription', './src/assets/shopInscription.png');
+    this.load.image('health-potion', './src/assets/healthPotion.png');
+    this.load.image('pink-sword', './src/assets/pinkSword.png');
+    this.load.image('inventory-slot', './src/assets/inventorySlot.png');
+    this.load.image('over-window-information', './src/assets/overWindowInformation.png');
+    this.load.image('shop-money-background', './src/assets/shopWindowMoneyBackground.png');
 
+
+
+
+ 
 
 
 
@@ -211,8 +220,9 @@ class PreloadScene extends Phaser.Scene {
   }
 
   launchHUD() {
-    this.scene.launch("HudScene")
+    this.scene.launch("HudScene",)
+    this.scene.launch("WindowScene",)
   }
 }
 
-export default PreloadScene;
+export default PreloadScene

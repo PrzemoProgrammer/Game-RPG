@@ -1,27 +1,11 @@
-import ShopWindow from "../../windows/ShopWindow"
+import inventoryWindowConfig from "../../../config/windows/inventoryWindowConfig"
+import Window from "../../windows/Window"
 
-class InventoryWindow extends ShopWindow{
-    constructor(scene, config) {
-        super(scene)
+class InventoryWindow extends Window {
+    constructor(entity) {
+        super(entity, inventoryWindowConfig)
 
-        this.scene = scene
-        this.config = config
     }
 
-    // openInventory(){
-    //     this.changeInventoryVisibility(true)
-    // }
-
-    // closeInventory() {
-    //     this.changeInventoryVisibility(false)
-    // }
-
-    // changeInventoryVisibility(bool) {
-    //     this.sprite.setVisible(bool).setActive(bool)
-    // }
-
-    // isOpen(){
-    //     return this.sprite.visible
-    // }
 }
 export default InventoryWindow

@@ -3,8 +3,9 @@ import Button from "../componens/Button";
 import Status from "../componens/HUD/status/Status"
 import BottomBar from "../componens/HUD/bottomBar/BottomBar"
 import { HUD_SCENE } from './scenes'
-import inventoryWindowConfig from '../config/windows/inventoryWindowConfig';
-import InventoryWindow from '../componens/HUD/inventory/InventoryWindow';
+// import inventoryWindowConfig from '../config/windows/inventoryWindowConfig';
+// import InventoryWindow from '../componens/HUD/inventory/InventoryWindow';
+
 
 class HudScene extends Phaser.Scene {
 
@@ -14,13 +15,14 @@ class HudScene extends Phaser.Scene {
 
       create(){
         HUD_SCENE.setScene(this)
+
+        this.scene = this
       
         this.bottomBar = new BottomBar(this, 230, 530, 'skillsBannerHUD')
         this.status = new Status(this, 10, 10, 'profileHUD', 'profilePhotoHUD', 'profileBackgroundHUD')
-        // this.inventory = new InventoryWindow(this, inventoryWindowConfig)
         this.inventoryButton = new Button(this, 760, 565, 'inventoryButtonHUD')
         // .onClick(()=>{
-        //     this.inventory.isOpen() ? this.inventory.closeInventory() : this.inventory.openInventory()
+        //     this.inventory.windowContainer.isOpen() ? this.windowContainer.closeWindow() : this.windowContainer.openWindow()
         // })
       }
 

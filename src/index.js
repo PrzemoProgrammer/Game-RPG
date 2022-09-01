@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import PlayScene from './scenes/PlayScene';
 import PreloadScene from './scenes/PreloadScene';
 import HudScene from './scenes/HudScene';
+import WindowScene from './scenes/WindowScene';
 
 const config = {
     type: Phaser.AUTO,
@@ -15,7 +16,7 @@ const config = {
             debug: true
         }
     },
-    scene: [PreloadScene, PlayScene, HudScene]
+    scene: [PreloadScene, PlayScene, HudScene, WindowScene]
 };
 
 const game = new Phaser.Game(config);
