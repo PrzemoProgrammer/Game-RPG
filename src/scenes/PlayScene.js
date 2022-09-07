@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import { WINDOW_SCENE } from './scenes';
 import { PLAY_SCENE } from './scenes';
 import HandleInputs from '../utils/HandleInputs'
 import MouseControl from '../utils/MouseControl';
@@ -11,6 +12,7 @@ import enemiesConfig from '../config/enemies/index'
 import playerConfig from '../config/player/player'
 import NPCsConfig from '../config/NPC/index'
 import NPC from '../entities/NPC';
+
 
 class PlayScene extends Phaser.Scene {
 
@@ -49,7 +51,7 @@ class PlayScene extends Phaser.Scene {
     this.handleInputs.handleMovement()
     this.mouseControl.handleMovement()
     this.enemy.forEach(entity => entity.update())
-    this.NPC.forEach(entity => entity.update(this.player))
+    // this.NPC.forEach(entity => entity.update(this.player))
     this.updateDepth()
   }
 
@@ -63,16 +65,6 @@ class PlayScene extends Phaser.Scene {
 
   spawnNPC(NPCConfig) {
     const npc = new NPC(this, NPCConfig)
-
-    npc.window.setWindowCallbacks({
-      onWindowOpen:()=>{
-        this.player.freeze()
-        this.mouseControl.setClicksBlocked(1)
-      },
-      onWindowClose:()=>{
-        this.player.unfreeze()
-      }
-    })
 
     this.NPC.push(npc)
     this.physics.add.overlap(this.player.characterContainer, npc.characterContainer, () => this.openWindow(npc), undefined, this)
@@ -121,8 +113,13 @@ class PlayScene extends Phaser.Scene {
     })
   }
 
-  openWindow(NPC){
-    NPC.openWindow();
+  openWindow(npc){
+   if(npc.config.name === "SHOP") {
+      WINDOW_SCENE.SCENE.openWindow("SHOP")
+   }
+   else if(npc.config.name === "QUEST") {
+      WINDOW_SCENE.SCENE.openWindow("QUEST")
+    }
   }
 
   updateTakePlayerSwordDamage(enemy){
@@ -166,6 +163,8 @@ class PlayScene extends Phaser.Scene {
     }
   }
 
+  // distance
+
   updateDepth(){
     this.enemy.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
     this.NPC.forEach(entity => entity.characterContainer.setDepth(entity.characterContainer.body.y + entity.characterContainer.body.height))
@@ -177,5 +176,8 @@ export default PlayScene;
 // ekwipunek
 // np ze sklepem
 // kolizja z tójkątami
+
+
+
 
 

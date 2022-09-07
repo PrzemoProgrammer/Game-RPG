@@ -11,3 +11,10 @@ export const HUD_SCENE = {
         this.SCENE = scene
     }
 }
+
+export const WINDOW_SCENE = {
+    SCENE:{},
+    setScene:function(scene){
+        this.SCENE = scene
+    }
+}

@@ -18,6 +18,7 @@ class PreloadScene extends Phaser.Scene {
     
 
 
+    // ! SHOP NPC
     this.load.spritesheet('NPC-shop', './src/assets/shopNPC.png', {
       frameWidth: 288, frameHeight: 127
     });
@@ -29,21 +30,15 @@ class PreloadScene extends Phaser.Scene {
     this.load.image('shop-money-background', './src/assets/shopWindowMoneyBackground.png');
 
 
+    // ! QUEST NPC
 
-
- 
-
-
-
-
-  this.load.spritesheet('NPC-quest', './src/assets/questNPCIdle.png', {
+    this.load.spritesheet('NPC-quest', './src/assets/questNPCIdle.png', {
       frameWidth: 288, frameHeight: 127
     });
     this.load.image('questInscription', './src/assets/questInscription.png');
 
-    
 
-
+    // ! SKILL ICONS
     this.load.image('falling-rock-icon', './src/assets/fallingRockSkillIcon.png');
     this.load.image('freeze-spin-icon', './src/assets/freezeSpinSkillIcon.png');
     this.load.image('load-skill-image', './src/assets/loadSKillImage.png');
@@ -51,6 +46,8 @@ class PreloadScene extends Phaser.Scene {
     
 
 
+
+    // ! FALL METEORITE SKILL
 
     this.load.image('meteorite', './src/assets/meteorite.png');
     this.load.image('ground-heat', './src/assets/groundHeat.png');
@@ -69,6 +66,7 @@ class PreloadScene extends Phaser.Scene {
 
 
 
+    // ! SKILL FREEZE SPIN
 
     this.load.spritesheet('tornado', './src/assets/tornado.png', {
       frameWidth: 180, frameHeight: 138
@@ -88,6 +86,7 @@ class PreloadScene extends Phaser.Scene {
     
 
 
+      // ! PLAYER
 
       this.load.spritesheet('player-idle', './src/assets/playerIdle.png', {
         frameWidth: 288, frameHeight: 128
@@ -124,7 +123,7 @@ class PreloadScene extends Phaser.Scene {
  
 
 
-
+      // ! SKIELETON ENEMY
 
       this.load.spritesheet('skeleton-idle', './src/assets/skeletonIdle.png', {
         frameWidth: 288, frameHeight: 128
@@ -148,7 +147,7 @@ class PreloadScene extends Phaser.Scene {
 
 
 
-
+      // ! MUSHROM ENEMY
 
       this.load.spritesheet('mushroom-idle', './src/assets/mushroomIdle.png', {
         frameWidth: 288, frameHeight: 128
@@ -171,11 +170,7 @@ class PreloadScene extends Phaser.Scene {
       });
 
   
-
-
-
-      
-
+      // ! FLYING EYE ENEMY
       this.load.spritesheet('flyingEye-idle', './src/assets/flyingEyeIdle.png', {
         frameWidth: 288, frameHeight: 128
       });
@@ -194,8 +189,7 @@ class PreloadScene extends Phaser.Scene {
 
 
 
-
-
+      // ! HUD SCENE
        this.load.spritesheet('profilePhotoHUD', './src/assets/playerProfilePhotoHUD.png', {
         frameWidth: 63, frameHeight: 63
       });
@@ -207,6 +201,14 @@ class PreloadScene extends Phaser.Scene {
       this.load.image('inventoryInscription', './src/assets/inventoryInscription.png');
       this.load.image('profileBackgroundHUD', './src/assets/profileBackgroundHUD.png');
       this.load.image('manaBarHUD', './src/assets/manaBarHUD.png');
+
+
+      // this.load.on('complete', ()=> {
+      //   loadingText.destroy();
+      //   progressBar.destroy();
+      //   progressBox.destroy();
+      //   this.scene.start('CharacterSelectionScene')
+      // })
   }
 
   create() {
@@ -220,8 +222,8 @@ class PreloadScene extends Phaser.Scene {
   }
 
   launchHUD() {
-    this.scene.launch("HudScene",)
     this.scene.launch("WindowScene",)
+    this.scene.launch("HudScene",)
   }
 }
 

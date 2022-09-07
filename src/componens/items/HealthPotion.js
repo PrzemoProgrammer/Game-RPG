@@ -1,9 +1,8 @@
 import Item from "./Item";
 
 class HealthPotion extends Item {
-    constructor(scene, config) {
-        super(scene, config)
-
+    constructor(window, config) {
+        super(window, config)
 
         
 

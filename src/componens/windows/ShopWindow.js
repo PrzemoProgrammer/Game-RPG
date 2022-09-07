@@ -3,10 +3,12 @@ import HealthPotion from "../items/HealthPotion";
 import PinkSword from "../items/PinkSword";
 import Window from "./Window";
 import itemsConfig from "../../config/items/index";
+// import NPCsConfig from "../../config/NPC/index";
+
 
 class ShopWindow extends Window {
-    constructor(entity) {
-        super(entity, shopWindowConfig)
+    constructor(scene) {
+        super(scene, shopWindowConfig)
 
         this.slot = {
             row: 4,
@@ -17,6 +19,13 @@ class ShopWindow extends Window {
             slotHeight: 50,
             gridSpacing: 30
         }
+
+        // NPCsConfig.forEach(NPCsConfig => { 
+        //     if(NPCsConfig.windowType === "SHOP") {
+        //         this.windowContainer.x = NPCsConfig.x -100
+        //         this.windowContainer.y = NPCsConfig.y -150
+        //     }
+        //   })
 
         this.createSlots()
         this.createItems()
@@ -29,7 +38,7 @@ class ShopWindow extends Window {
                 let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing)) 
                 let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing)) 
 
-                this.tileSlot = this.entity.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
+                this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
                 this.windowContainer.add(this.tileSlot)
             }
         }
