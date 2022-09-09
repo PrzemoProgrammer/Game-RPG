@@ -20,14 +20,10 @@ class ShopWindow extends Window {
             gridSpacing: 30
         }
 
-        // NPCsConfig.forEach(NPCsConfig => { 
-        //     if(NPCsConfig.windowType === "SHOP") {
-        //         this.windowContainer.x = NPCsConfig.x -100
-        //         this.windowContainer.y = NPCsConfig.y -150
-        //     }
-        //   })
-
         this.createSlots()
+
+        this.items = []
+
         this.createItems()
     }
 
@@ -49,24 +45,13 @@ class ShopWindow extends Window {
             let item = null
              
             switch(itemConfig.type) {
-
-            case "healthPotion" : item = new HealthPotion(this, itemConfig); break;
-            case "pinkSword" : item = new PinkSword(this, itemConfig); break;
+                case "healthPotion" : item = new HealthPotion(this, itemConfig); break;
+                case "pinkSword" : item = new PinkSword(this, itemConfig); break;
             }
-            item.sprite.setInteractive()
-            item.sprite.on('pointerover', () =>{
-                item.showInformation()
-            })
-            
-            item.sprite.on('pointerout', () =>{
-                item.hideInformation()
-            })
 
-
-            // item.sprite.on('pointerdown', ()=> {
-            //     item.sprite.setScale( 0.9 );
-            // })
+            item.itemInformation.closeBoard()
             this.windowContainer.add(item.sprite)
+            this.items.push(item)
         })
     }
 }

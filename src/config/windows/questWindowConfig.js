@@ -1,6 +1,6 @@
 export default {
-    x:-100,
-    y:-100,
+    x: 300,
+    y: 100,
     name:'questInscription',
     type: 'QUEST'
   }

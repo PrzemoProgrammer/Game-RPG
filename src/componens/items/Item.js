@@ -1,32 +1,32 @@
+import InformationBoard from "../InformationBoard";
+
 class Item {
     constructor(window, config) {
         this.window = window;
-        this.config = config
-
-        this.name = config.name
-        this.description = config.description
+       
         this.cost = config.cost
 
-        this.sprite = this.window.scene.add.sprite(config.x,  config.y, config.sprite).setOrigin(0, 0)
-        this.sprite.setDepth(1000) 
+        this.sprite = this.window.scene.add.sprite(config.x, config.y, config.sprite).setOrigin(0, 0).setDepth(1000) 
+
+        this.itemInformation = new InformationBoard(this.window.scene, config)
+
+        this.sprite.setInteractive()
+        this.initPointer()
     }
 
-    showInformation(){
-        this.informationWindow = this.window.scene.add.sprite(this.window.windowContainer.x + this.sprite.x + this.sprite.width,  this.window.windowContainer.y + this.sprite.y, 'over-window-information').setOrigin(0, 0).setDepth(1001)
-        this.createItemInformation()
-    }
+    initPointer(){
+        this.sprite.on('pointerover', () =>{
 
-    hideInformation(){
-        this.informationWindow.destroy()
-        this.itemInformationContainer.destroy()
-    }
-
-    createItemInformation(){
-        this.nameText = this.window.scene.add.text(this.informationWindow.width/2 , 0, this.name, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setOrigin(0.5,0)
-        this.descriptionText = this.window.scene.add.text(10, 50, this.description, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setOrigin(0,0)
-        this.costText = this.window.scene.add.text(10, 150, "Cost: " +  this.cost, { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setOrigin(0,0)
-
-        this.itemInformationContainer = this.window.scene.add.container(this.informationWindow.x, this.informationWindow.y, [this.nameText, this.descriptionText, this.costText]).setDepth(1003)
+            let x = this.sprite.parentContainer.active ? x = this.sprite.parentContainer.x + this.sprite.x + this.sprite.width : x = this.sprite.x + this.sprite.width
+            let y =  this.sprite.parentContainer.active ? y = this.sprite.parentContainer.y + this.sprite.y : y = this.sprite.y
+    
+            this.itemInformation.setPosition(x, y)
+            this.itemInformation.openBoard()
+        })
+        
+        this.sprite.on('pointerout', () =>{
+            this.itemInformation.closeBoard()
+        })
     }
 }
 

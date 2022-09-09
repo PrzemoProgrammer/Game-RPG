@@ -145,6 +145,8 @@ function initPlayerAnims(scene){
 
 
 
+
+
 }
 
   export default initPlayerAnims

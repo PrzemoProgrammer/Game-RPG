@@ -17,7 +17,6 @@ class PreloadScene extends Phaser.Scene {
 
     
 
-
     // ! SHOP NPC
     this.load.spritesheet('NPC-shop', './src/assets/shopNPC.png', {
       frameWidth: 288, frameHeight: 127

@@ -14,7 +14,7 @@ export default class Window {
             this.isOpen() ? this.closeWindow() : this.openWindow()
         })
 
-        this.windowContainer = this.scene.add.container(config.x ,config.y + 10, [this.sprite, this.name, this.escapeButton]) //podać x i y kontenera npcka
+        this.windowContainer = this.scene.add.container(config.x, config.y, [this.sprite, this.name, this.escapeButton]) 
 
         this.windowContainer.setDepth(1000)
     }  
