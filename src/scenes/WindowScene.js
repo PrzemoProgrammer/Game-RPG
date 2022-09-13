@@ -70,6 +70,7 @@ class WindowScene extends Phaser.Scene {
         this.windows[0].items.forEach( item => item.sprite.on("pointerdown", ()=> {
           if(item.cost <= this.inventoryWindow.gold) {
             this.inventoryWindow.updateGold(item)
+            this.inventoryWindow.addItem(item)
           }
           else {
             this.notEnoughMoneyText.openBoard()

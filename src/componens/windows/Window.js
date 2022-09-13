@@ -16,10 +16,7 @@ export default class Window {
 
         this.windowContainer = this.scene.add.container(config.x, config.y, [this.sprite, this.name, this.escapeButton])
         this.windowContainer.setDepth(1000)
-        console.log(this.windowContainer)
-        console.log(this.sprite.parentContainer)
-
-    }  
+    }
 
 
     openWindow(){
@@ -48,5 +45,3 @@ export default class Window {
         });
     }
 }
-
-//!Zrobić kupowanie itemów i do inventory
