@@ -20,19 +20,19 @@ class ShopWindow extends Window {
             gridSpacing: 30
         }
 
-        this.createSlots()
+        this.createItemSlots()
 
         this.items = []
 
         this.createItems()
     }
 
-    createSlots(){
+    createItemSlots(){
         for(let i=0; i<this.slot.row; i++) {
             for(let j=0; j<this.slot.column; j++){
 
-                let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing)) 
-                let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing)) 
+                let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing) -131) 
+                let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing) -167) 
 
                 this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
                 this.windowContainer.add(this.tileSlot)

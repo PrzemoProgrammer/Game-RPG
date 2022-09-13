@@ -3,16 +3,7 @@ import { WINDOW_SCENE } from './scenes'
 import InventoryWindow from '../componens/HUD/inventory/InventoryWindow';
 import QuestWindow from '../componens/windows/QuestWindow';
 import ShopWindow from '../componens/windows/ShopWindow';
-
-
-
-
-
-// import shopWindowConfig from "../config/windows/shopWindowConfig";
-// import questWindowConfig from "../config/windows/questWindowConfig";
-
 import NPCsConfig from "../config/NPC/index";
-import player from '../config/player/player';
 import InformationBoard from '../componens/InformationBoard';
 import buyErrorConfig from '../config/annoucements/buyErrorConfig';
 
@@ -31,6 +22,7 @@ class WindowScene extends Phaser.Scene {
         this.initCreateNPCWindows()
 
         this.inventoryWindow = new InventoryWindow(this) 
+        this.inventoryWindow.moveable()
         this.inventoryWindow.closeWindow()
         this.enableBuyItems()
 
@@ -53,6 +45,7 @@ class WindowScene extends Phaser.Scene {
           case  "QUEST": window = new QuestWindow(this); break;
         }
 
+        window.moveable()
         this.addNPCWindow(window)
         this.closeWindow(window)
       }
@@ -74,14 +67,12 @@ class WindowScene extends Phaser.Scene {
       }
 
       enableBuyItems(){
-
         this.windows[0].items.forEach( item => item.sprite.on("pointerdown", ()=> {
           if(item.cost <= this.inventoryWindow.gold) {
             this.inventoryWindow.updateGold(item)
           }
           else {
             this.notEnoughMoneyText.openBoard()
-
             this.time.delayedCall(3000, () => {
               this.notEnoughMoneyText.closeBoard()
             })  
@@ -99,5 +90,4 @@ export default WindowScene
 
 
 
-
-
+//! zrobić rozciąganie tego info board do wielkości tekstu

@@ -1,6 +1,6 @@
 export default {
-    x: 300,
-    y: 100,
+    x: 431,
+    y: 267,
     name:'shopInscription' ,
     type: 'SHOP'
-  }
+  } 

@@ -24,8 +24,12 @@ class PlayScene extends Phaser.Scene {
     this.onPlaySceneCreated = onPlaySceneCreated 
     PLAY_SCENE.setScene(this) 
 
-    this.gw = this.game.config.width;
-    this.gh = this.game.config.height;
+    window.canvasData = { 
+        cw: this.game.config.width,
+        ch: this.game.config.height,
+    }
+    // this.gw = this.game.config.width;
+    // this.gh = this.game.config.height;
     
     anims.forEach(anim => anim(this))
 

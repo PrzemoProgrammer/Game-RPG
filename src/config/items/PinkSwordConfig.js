@@ -1,9 +1,12 @@
 export default {
-    x: 75,
-    y: 35,
+    x: -56,
+    y: -132,
     sprite:"pink-sword",
     type: "pinkSword",
     name:"Pink Sword",
-    description: "Attack +10",
+    description: {
+      text:"Attack +10",
+      wordWrap: true
+    },
     cost: "200"
-  }
+  } 

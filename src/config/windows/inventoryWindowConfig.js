@@ -1,10 +1,10 @@
 export default {
-    x:530,
-    y:190,
+    x:661,
+    y:357,
     name:'inventoryInscription',
     gold: {
       amound: 1000,
-      x: 240,
-      y: 310,
+      x: 109,
+      y: 143,
     }
-  }
+  }      
