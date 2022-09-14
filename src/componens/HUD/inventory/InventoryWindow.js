@@ -1,6 +1,10 @@
-import initFlyingEyeAnims from "../../../animations/initFlyingEyeAnims"
 import inventoryWindowConfig from "../../../config/windows/inventoryWindowConfig"
+import Item from "../../items/Item"
 import Window from "../../windows/Window"
+import HealthPotion from "../../items/HealthPotion"
+import PinkSword from "../../items/PinkSword"
+
+
 
 class InventoryWindow extends Window {
     constructor(scene) {
@@ -33,10 +37,10 @@ class InventoryWindow extends Window {
         for(let i=0; i<this.slot.maxColumns; i++) {
             for(let j=0; j<this.slot.maxRows; j++){
 
-                let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing) -131) 
-                let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing) -167) 
+                let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing) -105) 
+                let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing) -142) 
 
-                this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
+                this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setDepth(1000)
                 this.inventorySlots.push(this.tileSlot)
                 this.windowContainer.add(this.tileSlot)
             }
@@ -52,24 +56,27 @@ class InventoryWindow extends Window {
        console.log(item)
 
        let index = this.items.map(object => object).indexOf(item);
-        // this.inventorySlots[index]
         console.log(this.inventorySlots[index])
-        let x = this.inventorySlots[index].x
-        let y = this.inventorySlots[index].y
-
-        console.log(x)
-        console.log(y)
+        let x = this.inventorySlots[index].x;
+        let y = this.inventorySlots[index].y;
 
 
+        this.item = null
+        switch(item.config.type) {
+            case "healthPotion" : this.item = new HealthPotion(this.scene, item.config); break;
+            case "pinkSword" : this.item = new PinkSword(this.scene, item.config); break;
+        }
 
-        this.item = this.scene.add.sprite( x, y, item.sprite.texture.key).setOrigin(0, 0).setDepth(2000)
-        this.windowContainer.add(this.item)
+        // item.setPosition(x, y)
+  
 
 
-        // i teraz sprawdzić ten item jaki ma index w tablicy items i narysować sprita z x i y w tym samych wspołrzednych co index w tablicy slots
+        // this.item = this.scene.add.sprite( x, y, item.sprite.texture.key).setDepth(2000)
 
-    //    this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
-    console.log(this.items)
+        
+        this.items.push(this.item)
+        // this.windowContainer.add(this.item)
+        // ! naprawić dodawanie do contenera
     }
 
 

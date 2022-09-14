@@ -45,14 +45,18 @@ class ShopWindow extends Window {
             let item = null
              
             switch(itemConfig.type) {
-                case "healthPotion" : item = new HealthPotion(this, itemConfig); break;
-                case "pinkSword" : item = new PinkSword(this, itemConfig); break;
+                case "healthPotion" : item = new HealthPotion(this.scene, itemConfig); break;
+                case "pinkSword" : item = new PinkSword(this.scene, itemConfig); break;
             }
 
             item.itemInformation.closeBoard()
             this.windowContainer.add(item.sprite)
             this.items.push(item)
+
         })
+        // przekazać scene w metodzie
     }
+
+    
 }
 export default ShopWindow
