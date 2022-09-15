@@ -1,6 +1,8 @@
 export default {
-    x:661,
-    y:357,
+  position: {
+    x:530,
+    y:190,
+  },
     name:'inventoryInscription',
     gold: {
       amound: 1000,

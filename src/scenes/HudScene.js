@@ -18,7 +18,7 @@ class HudScene extends Phaser.Scene {
       
         this.bottomBar = new BottomBar(this, 230, 530, 'skillsBannerHUD')
         this.status = new Status(this, 10, 10, 'profileHUD', 'profilePhotoHUD', 'profileBackgroundHUD')
-        this.inventoryButton = new Button(this, 760, 565, 'inventoryButtonHUD')
+        this.inventoryButton = new Button(this, 730, 535, 'inventoryButtonHUD')
         .onClick(()=>{
           WINDOW_SCENE.SCENE.inventoryWindow.isOpen() ? WINDOW_SCENE.SCENE.inventoryWindow.closeWindow()  : WINDOW_SCENE.SCENE.inventoryWindow.openWindow() 
         })

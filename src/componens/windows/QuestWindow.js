@@ -6,7 +6,7 @@ class QuestWindow extends Window {
     constructor(scene) {
         super(scene, questWindowConfig)
 
-        this.backgorund = this.scene.add.sprite(-126, -137, 'blankBackgroundWindow').setOrigin(0, 0)
+        this.backgorund = this.scene.add.sprite(this.windowSprite.x +5, this.windowSprite.y +25, 'blankBackgroundWindow').setOrigin(0, 0)
 
         this.windowContainer.add(this.backgorund);
     }

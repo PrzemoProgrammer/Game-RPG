@@ -88,7 +88,3 @@ class WindowScene extends Phaser.Scene {
     
 export default WindowScene
 
-
-
-
-//! zrobić rozciąganie tego info board do wielkości tekstu

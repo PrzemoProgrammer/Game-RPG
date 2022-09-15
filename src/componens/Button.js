@@ -6,6 +6,7 @@ class Button extends Phaser.GameObjects.Sprite{
         this.y = y
         this.sprite = sprite
         scene.add.existing(this)
+        this.setOrigin(0,0)
 
         this.setInteractive()
     }

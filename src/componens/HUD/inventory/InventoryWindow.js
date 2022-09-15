@@ -13,7 +13,7 @@ class InventoryWindow extends Window {
         this.config = inventoryWindowConfig
         this.gold = this.config.gold.amound
 
-        this.goldText = this.scene.add.text(this.config.gold.x, this.config.gold.y, this.gold + ' :Gold', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setOrigin(1,0)
+        this.goldText = this.scene.add.text(this.windowSprite.x  + this.windowSprite.displayWidth -10, this.windowSprite.y + this.windowSprite.displayHeight - 27, this.gold + ' :Gold', { fontFamily: 'Georgia, "Goudy Bookletter 1911", Times, serif'}).setOrigin(1,0)
         this.windowContainer.add(this.goldText)
 
         this.inventorySlots = []
@@ -37,10 +37,10 @@ class InventoryWindow extends Window {
         for(let i=0; i<this.slot.maxColumns; i++) {
             for(let j=0; j<this.slot.maxRows; j++){
 
-                let x = this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing) -105) 
-                let y = this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing) -142) 
+                let x = this.windowSprite.x + this.slot.marginX + this.slot.slotWeight/2 + ( i* (this.slot.slotWeight/2 + this.slot.gridSpacing)) 
+                let y = this.windowSprite.y + this.slot.marginY + this.slot.slotHeight/2 + ( j* (this.slot.slotHeight/2 + this.slot.gridSpacing)) 
 
-                this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setDepth(1000)
+                this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
                 this.inventorySlots.push(this.tileSlot)
                 this.windowContainer.add(this.tileSlot)
             }
@@ -61,13 +61,20 @@ class InventoryWindow extends Window {
         let y = this.inventorySlots[index].y;
 
 
-        this.item = null
-        switch(item.config.type) {
-            case "healthPotion" : this.item = new HealthPotion(this.scene, item.config); break;
-            case "pinkSword" : this.item = new PinkSword(this.scene, item.config); break;
-        }
+        // this.item = null
+        // switch(item.config.type) {
+        //     case "healthPotion" : this.item = new HealthPotion(this.scene, item.config); break;
+        //     case "pinkSword" : this.item = new PinkSword(this.scene, item.config); break;
+        // }
 
-        // item.setPosition(x, y)
+        console.log(this.item)
+
+        // this.windowContainer.add(this.item.sprite)
+
+
+        // this.item.sprite.x = x
+        // this.item.sprite.y = y
+
   
 
 
@@ -75,8 +82,7 @@ class InventoryWindow extends Window {
 
         
         this.items.push(this.item)
-        // this.windowContainer.add(this.item)
-        // ! naprawić dodawanie do contenera
+
     }
 
 

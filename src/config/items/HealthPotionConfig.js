@@ -1,7 +1,7 @@
 export default {
     x: -106,
     y: -132,
-    sprite:"health-potion",
+  sprite:"health-potion",
     type: "healthPotion",
     name:"Health Potion",
     description: {
@@ -9,4 +9,4 @@ export default {
       wordWrap: true
     },
     cost: "50"
-  } // 131, 167
+  } 

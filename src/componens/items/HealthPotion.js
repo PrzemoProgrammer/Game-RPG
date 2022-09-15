@@ -8,8 +8,5 @@ class HealthPotion extends Item {
         this.scene = scene
     }
 
-    clone(){
-        // return new Item(window, this.config)
-    }
 }
 export default HealthPotion
