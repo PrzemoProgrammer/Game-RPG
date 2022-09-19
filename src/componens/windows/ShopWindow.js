@@ -103,5 +103,6 @@ class ShopWindow extends Window {
      }
 
     //! nie widać sprajta itema. prawdopodobnie coś w klasie Item bo jak tu tworze tak o (zobacz wyzej) to tez nie widać
+    //! wejdz w klase sprita tam jest napisane co mozesz sprobowac zrobić
 }
 export default ShopWindow

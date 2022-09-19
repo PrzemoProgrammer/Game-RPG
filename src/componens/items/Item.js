@@ -10,7 +10,9 @@ import InformationBoard from "../InformationBoard";
 
                 this.sprite = config.sprite 
                 
-                this.setOrigin(0, 0).setDepth(1000) 
+                this.setOrigin(0, 0)
+                this.setDepth(1000) 
+               //! sprawdzić to // scene.add.existing(this);
 
                 if(config.cost)
                 this.cost = config.cost
