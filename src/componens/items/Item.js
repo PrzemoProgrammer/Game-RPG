@@ -2,17 +2,17 @@ import InformationBoard from "../InformationBoard";
 
         class Item extends Phaser.GameObjects.Sprite{
             constructor(scene, config) {
-                super(scene)
+                super(scene, config.x, config.y, config.sprite)
 
                 this.scene = scene; 
                 this.x = 0
                 this.y = 0
+                this.config = config
 
                 this.sprite = config.sprite 
                 
-                this.setOrigin(0, 0)
                 this.setDepth(1000) 
-               //! sprawdzić to // scene.add.existing(this);
+               this.scene.add.existing(this);
 
                 if(config.cost)
                 this.cost = config.cost
@@ -29,11 +29,11 @@ import InformationBoard from "../InformationBoard";
             }
         
             pointerOver(){
-                this.on('pointerover', () =>{
-                    // let x = this.parentContainer.active ? x = this.parentContainer.x + this.x + this.width : x = this.x + this.width
-                    // let y =  this.parentContainer.active ? y = this.parentContainer.y + this.y : y = this.y
+                this.on('pointerover', () =>{``
+                    let x = this.parentContainer.active ? x = this.parentContainer.x + this.x + this.width : x = this.x + this.width
+                    let y =  this.parentContainer.active ? y = this.parentContainer.y + this.y : y = this.y
                     
-                    this.itemInformation.setPosition(this.x + 10, this.y)
+                    this.itemInformation.setPosition(x, y)
                     this.itemInformation.openBoard()
                 })
             }

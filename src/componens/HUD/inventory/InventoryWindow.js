@@ -3,6 +3,9 @@ import Item from "../../items/Item"
 import Window from "../../windows/Window"
 import HealthPotion from "../../items/HealthPotion"
 import PinkSword from "../../items/PinkSword"
+// import items from "../../items/"
+import createItem from "../../items/Items"
+
 
 
 
@@ -52,64 +55,47 @@ class InventoryWindow extends Window {
     }
 
     addItem(item){
-       this.items.push(item)
-       console.log(item)
 
-       let index = this.items.map(object => object).indexOf(item);
-        console.log(this.inventorySlots[index])
-        let x = this.inventorySlots[index].x;
-        let y = this.inventorySlots[index].y;
-
-
-        // this.item = null
-        // switch(item.config.type) {
-        //     case "healthPotion" : this.item = new HealthPotion(this.scene, item.config); break;
-        //     case "pinkSword" : this.item = new PinkSword(this.scene, item.config); break;
-        // }
-
-        console.log(this.item)
-
-        // this.windowContainer.add(this.item.sprite)
-
-
-        // this.item.sprite.x = x
-        // this.item.sprite.y = y
-
-  
-
-
-        // this.item = this.scene.add.sprite( x, y, item.sprite.texture.key).setDepth(2000)
-
+        let _item = createItem(this.scene, item.config)
         
-        this.items.push(this.item)
+        this.items.push(_item)
 
+        let index = this.items.map(object => object).indexOf(_item);
+
+        let slot = this.inventorySlots[index]
+        let x = slot.x + slot.width/2
+        let y = slot.y + slot.height/2
+
+        _item.x = x
+        _item.y = y
+
+        this.windowContainer.add(_item)
     }
 
 
 
+    // addItem(item){
 
-    
-    // createItemSlots(){
-    //     for(let index=0; index<this.slot.maxColumns; index++) {
-    //             // let x = this.slot.marginX + this.slot.slotWeight/2 + ( index* (this.slot.slotWeight/2 + this.slot.gridSpacing) -131) 
-    //             // let y = this.slot.marginY + this.slot.slotHeight/2 + ( index* (this.slot.slotHeight/2 + this.slot.gridSpacing) -167) 
-
-
-    //             let x = this.slot.marginX + this.slot.slotWeight/2 + (index % this.slot.maxColumns)* (this.slot.slotWeight/2 + this.slot.gridSpacing) -131
-    //             let y = this.slot.marginY + this.slot.slotHeight/2 + Math.floor(index/this.slot.maxColumns)* (this.slot.slotHeight/2 + this.slot.gridSpacing) -167
-
-    //             console.log(x)
-    //             console.log(y)
-    //             this.tileSlot = this.scene.add.sprite( x, y, 'inventory-slot').setOrigin(0, 0).setDepth(1000)
-    //             this.inventorySlots.push(this.tileSlot)
-    //             this.windowContainer.add(this.tileSlot)
-           
+    //     let _item = null
+        
+    //     switch(item.config.type) {
+    //         case "healthPotion" : _item = new HealthPotion(this.scene, item.config); break;
+    //         case "pinkSword" : _item = new PinkSword(this.scene, item.config); break;
     //     }
+
+    //     this.items.push(_item)
+
+    //     let index = this.items.map(object => object).indexOf(_item);
+
+    //     let slot = this.inventorySlots[index]
+    //     let x = slot.x + slot.width/2
+    //     let y = slot.y + slot.height/2
+
+    //     _item.x = x
+    //     _item.y = y
+
+    //     this.windowContainer.add(_item)
     // }
-
-
-
-
 
     updateGold(item){
         this.gold -= item.cost

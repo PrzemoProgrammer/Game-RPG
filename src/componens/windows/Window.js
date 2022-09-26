@@ -7,7 +7,6 @@ export default class Window {
         this.config = config
 
         this.canOpen = true
-        console.log(this.scene)
         
         this.windowSprite = this.scene.add.sprite(0, 0, 'window').setOrigin(0,0)
        

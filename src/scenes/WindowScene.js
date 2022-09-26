@@ -67,7 +67,7 @@ class WindowScene extends Phaser.Scene {
       }
 
       enableBuyItems(){
-        this.windows[0].items.forEach( item => item.sprite.on("pointerdown", ()=> {
+        this.windows[0].items.forEach( item => item.on("pointerdown", ()=> {
           if(item.cost <= this.inventoryWindow.gold) {
             this.inventoryWindow.updateGold(item)
             this.inventoryWindow.addItem(item)

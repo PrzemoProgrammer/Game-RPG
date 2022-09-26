@@ -3,8 +3,10 @@ import HealthPotion from "../items/HealthPotion";
 import PinkSword from "../items/PinkSword";
 import Window from "./Window";
 import itemsConfig from "../../config/items/index";
+import createItem from "../items/Items";
 // import HealthPotionConfig from "../../config/items/HealthPotionConfig";
 // import NPCsConfig from "../../config/NPC/index";
+
 
 
 class ShopWindow extends Window {
@@ -23,11 +25,6 @@ class ShopWindow extends Window {
             slotHeight: 50,
             gridSpacing: 30
         }
-
-        // this.healthPotion = new HealthPotion(this.scene, HealthPotionConfig)
-        // console.log(this.healthPotion)
-        // this.healthPotion.x = 100
-        // this.healthPotion.y = 100
 
         this.createItemSlots()
         this.createItems()
@@ -50,59 +47,51 @@ class ShopWindow extends Window {
     createItems(){
 
         itemsConfig.forEach(itemConfig => { 
-            let item = null
-             
-            switch(itemConfig.type) {
-                case "healthPotion" : item = new HealthPotion(this.scene, itemConfig); break;
-                case "pinkSword" : item = new PinkSword(this.scene, itemConfig); break;
-            }
 
-            console.log(item)
-            item.x = 100
-            item.y = 100
-            // item.itemInformation.closeBoard()
-            // this.windowContainer.add(item)
-            // this.items.push(item)
+            let _item = createItem(this.scene, itemConfig)
 
+            this.items.push(_item)
+
+            let index = this.items.map(object => object).indexOf(_item);
+
+            let slot = this.inventorySlots[index]
+            let x = slot.x + slot.width/2
+            let y = slot.y + slot.height/2
+
+            _item.x = x
+            _item.y = y
+
+            _item.itemInformation.closeBoard()
+            this.windowContainer.add(_item)
         })
       
     }
 
-    addItem(){
-        this.items.push(item)
-        console.log(item)
- 
-        let index = this.items.map(object => object).indexOf(item);
-         console.log(this.inventorySlots[index])
-         let x = this.inventorySlots[index].x;
-         let y = this.inventorySlots[index].y;
- 
- 
-         // this.item = null
-         // switch(item.config.type) {
-         //     case "healthPotion" : this.item = new HealthPotion(this.scene, item.config); break;
-         //     case "pinkSword" : this.item = new PinkSword(this.scene, item.config); break;
-         // }
- 
-         console.log(this.item)
- 
-         // this.windowContainer.add(this.item.sprite)
- 
- 
-         // this.item.sprite.x = x
-         // this.item.sprite.y = y
- 
-   
- 
- 
-         // this.item = this.scene.add.sprite( x, y, item.sprite.texture.key).setDepth(2000)
- 
-         
-         this.items.push(this.item)
- 
-     }
 
-    //! nie widać sprajta itema. prawdopodobnie coś w klasie Item bo jak tu tworze tak o (zobacz wyzej) to tez nie widać
-    //! wejdz w klase sprita tam jest napisane co mozesz sprobowac zrobić
+    // createItems(){
+
+    //     itemsConfig.forEach(itemConfig => { 
+    //         let _item = null
+             
+    //         switch(itemConfig.type) {
+    //             case "healthPotion" : _item = new HealthPotion(this.scene, itemConfig); break;
+    //             case "pinkSword" : _item = new PinkSword(this.scene, itemConfig); break;
+    //         }
+    //         this.items.push(_item)
+
+    //         let index = this.items.map(object => object).indexOf(_item);
+
+    //         let slot = this.inventorySlots[index]
+    //         let x = slot.x + slot.width/2
+    //         let y = slot.y + slot.height/2
+
+    //         _item.x = x
+    //         _item.y = y
+
+    //         _item.itemInformation.closeBoard()
+    //         this.windowContainer.add(_item)
+    //     })
+      
+    // }
 }
 export default ShopWindow
